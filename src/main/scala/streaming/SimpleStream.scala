@@ -72,7 +72,10 @@ trait SimpleStream[+A] {
  
  *******************************************************************************************/     
  
- def fold[S](base:S)(foldFun:(S,A)=>S):S= ???
+ def fold[S](base:S)(foldFun:(S,A)=>S):S= this match {
+   case Empty => base
+   case Cons(_,_) => tail().fold(foldFun(base, head))(foldFun)
+ }
  
  /*******************************************************************************************  
  
